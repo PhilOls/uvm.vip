@@ -9,3 +9,14 @@ Install Eclipse
 Launch Eclipse
 Install CDT for Eclipse via Install New Software
 
+.....
+
+
+
+Launching build:
+
+Run > External tools > External tools configurations
+Ant Build >
+  Build.xml     /   Make sure Correct JRE is used
+  
+
