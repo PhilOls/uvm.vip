@@ -5,12 +5,21 @@
 	<projects>
 	</projects>
 	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/AntBuilder.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1510934494185</id>
+			<id>1510942907594</id>
 			<name></name>
 			<type>5</type>
 			<matcher>
@@ -19,7 +28,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1510934494187</id>
+			<id>1510942907596</id>
 			<name></name>
 			<type>5</type>
 			<matcher>
