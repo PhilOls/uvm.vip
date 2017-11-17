@@ -1,0 +1,12 @@
+<project name="uvm.vip" default="default" basedir=".">
+  <description>
+    uvm vip builder
+  </description>
+  <property environment="env"/>
+
+  <target name="default" description="Description missing">
+    <sequential>
+        <echo message="Welcome."/>
+    	</sequential>
+  </target>
+</project>
