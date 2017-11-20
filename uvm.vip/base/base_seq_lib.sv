@@ -1,5 +1,5 @@
 //
-// Template for UVM-compliant sequence library
+// Base sequence library
 //
 
 
@@ -22,7 +22,6 @@ class base_seq_lib extends uvm_sequence_library # (base_txn, base_txn);
 endclass  
 
 class base_sequence extends uvm_sequence #(base_txn, base_txn);
-  rand base_txn::kinds_e   kind;
 
   `uvm_object_utils_begin(base_sequence)
 		`uvm_field_enum(base_txn::kinds_e, kind, UVM_ALL_ON)
@@ -58,58 +57,6 @@ class base_sequence extends uvm_sequence #(base_txn, base_txn);
       starting_phase.drop_objection(this, "Ending");
   endtask:post_start
   `endif
-endclass
-
-class write_base extends base_sequence;
-
-  `uvm_object_utils(write_base)
-  `uvm_add_to_seq_lib(write_base,base_seq_lib)
-
-  constraint c_write {
-    kind == base_txn::WRITE;
-  }
-
-  function new(string name = "write_base");
-    super.new(name);
-	`ifdef UVM_POST_VERSION_1_1
-     set_automatic_phase_objection(1);
-    `endif
-  endfunction:new
-
-  virtual task body();
-    req = base_txn::type_id::create("req");
-		`uvm_do_with(req,
-			{req.kind            == local::kind;
-			 req.status          == UVM_IS_OK;
-			})
-		get_response(rsp);
-  endtask
-endclass
-
-class read_base extends base_sequence;
-
-  `uvm_object_utils(read_base)
-  `uvm_add_to_seq_lib(read_base,base_seq_lib)
-
-  constraint c_read {
-    kind == base_txn::READ;
-  }
-
-  function new(string name = "read_base");
-    super.new(name);
-	`ifdef UVM_POST_VERSION_1_1
-     set_automatic_phase_objection(1);
-    `endif
-  endfunction:new
-
-  virtual task body();
-    req = base_txn::type_id::create("req");
-		`uvm_do_with(req,
-			{req.kind            == local::kind;
-			 req.status          == UVM_IS_OK;
-			})
-		get_response(rsp);
-  endtask
 endclass
 
 `endif // base_seq_lib__SV

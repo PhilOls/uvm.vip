@@ -1,30 +1,28 @@
 //
-// Template for UVM Scoreboard
+//	Fully-featured score board
+//	- connects to score board filter
+//	- displays statistics during report phase
 
 `ifndef base_SCBD__SV
 `define base_SCBD__SV
 
-
 class base_scbd #(type txn_t=base_txn, cfg_t=base_cfg) extends uvm_scoreboard;
-
-  cfg_t cfg;
-
-  string actual_name   = "actual";
-  string expected_name = "expected";
-
-  `uvm_component_param_utils(base_scbd #(txn_t,cfg_t))
-
-   uvm_analysis_export #(txn_t)           expected_export, actual_export;
-   base_filter #(txn_t, cfg_t)             expected_filter, actual_filter;
-   base_in_order_class_comparator #(txn_t) comparator;
-
-  extern function new(string name = "base_scbd",
-                    uvm_component parent = null); 
-  extern virtual function void build_phase (uvm_phase phase);
-  extern virtual function void connect_phase (uvm_phase phase);
-  extern virtual task run_phase(uvm_phase phase);
-  extern virtual function void report_phase(uvm_phase phase);
- 
+	cfg_t cfg;
+	string actual_name   = "actual";
+	string expected_name = "expected";
+	
+	`uvm_component_param_utils(base_scbd #(txn_t,cfg_t))
+	
+	uvm_analysis_export #(txn_t)           expected_export, actual_export;
+	base_filter #(txn_t, cfg_t)             expected_filter, actual_filter;
+	base_in_order_class_comparator #(txn_t) comparator;
+	
+	extern function new(string name = "base_scbd",
+		uvm_component parent = null); 
+	extern virtual function void build_phase (uvm_phase phase);
+	extern virtual function void connect_phase (uvm_phase phase);
+	extern virtual task run_phase(uvm_phase phase);
+	extern virtual function void report_phase(uvm_phase phase);
 endclass: base_scbd
 
 
@@ -62,30 +60,28 @@ endtask: run_phase
 function void base_scbd::report_phase(uvm_phase phase);
 	super.report_phase(phase);
 	if (comparator.m_matches+comparator.m_mismatches > 0)
-	`uvm_info("", $psprintf("Matches = %0d, Mismatches = %0d",
-						 comparator.m_matches, comparator.m_mismatches),
-						 UVM_NONE);
-  if (expected_filter.m_filtered+actual_filter.m_filtered > 0)
-  `uvm_info("", $psprintf("Filtered on %s = %0d, Filtered on %s = %0d",
-             actual_name, actual_filter.m_filtered,
-             expected_name, expected_filter.m_filtered),
-             UVM_NONE)
-
+		`uvm_info("", $psprintf("Matches = %0d, Mismatches = %0d",
+			comparator.m_matches, comparator.m_mismatches),
+			UVM_NONE);
+	if (expected_filter.m_filtered+actual_filter.m_filtered > 0)
+		`uvm_info("", $psprintf("Filtered on %s = %0d, Filtered on %s = %0d",
+			actual_name, actual_filter.m_filtered,
+			expected_name, expected_filter.m_filtered),
+			UVM_NONE)
 	if (comparator.m_expected_fifo_used!=0 || comparator.m_actual_fifo_used != 0) begin
-    if (comparator.m_expected_fifo_used!=0) begin
-       txn_t t;
-      `uvm_warning("", $psprintf("Items remaining in %s fifo = %0d", expected_name, comparator.m_expected_fifo_used))
-      if (comparator.m_expected_fifo.try_get(t))
-        t.print();
-    end
-    if (comparator.m_actual_fifo_used!=0) begin
-       txn_t t;
-      `uvm_warning("", $psprintf("Items remaining in %s fifo = %0d", actual_name, comparator.m_actual_fifo_used))
-      if (comparator.m_actual_fifo.try_get(t))
-        t.print();
-    end
-  end
-
+		if (comparator.m_expected_fifo_used!=0) begin
+			txn_t t;
+			`uvm_warning("", $psprintf("Items remaining in %s fifo = %0d", expected_name, comparator.m_expected_fifo_used))
+			if (comparator.m_expected_fifo.try_get(t))
+			t.print();
+		end
+		if (comparator.m_actual_fifo_used!=0) begin
+			txn_t t;
+			`uvm_warning("", $psprintf("Items remaining in %s fifo = %0d", actual_name, comparator.m_actual_fifo_used))
+			if (comparator.m_actual_fifo.try_get(t))
+				t.print();
+		end
+	end
 endfunction:report_phase
 
 `endif // base_SCBD__SV
