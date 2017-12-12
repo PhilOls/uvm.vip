@@ -5,14 +5,12 @@ UVM.VIP allows creation of a custom VIP extending a Base VIP.
 Table of Contents
 -----------------
 
-[**Base VIP**](#basevip)
-* [**Features**](#features)
-[**How to use**](#howtouse)
+* [Base VIP](#basevip)
+    * [Features](#features)
+* [How to use](#howtouse)
 
-<br />
 
-<a name="basevip"></a>
-Base VIP (TL;DR)
+Base VIP <a name="basevip"></a>
 --------------------------
 
 Base VIP is a fully featured UVM verification IP to be used as basis for building more complex verification IP customized to any specific need. 
@@ -24,8 +22,7 @@ Base VIP is a fully featured UVM verification IP to be used as basis for buildin
 * integrates score board filtering to filter out specific transactions (default: filter forward all transactions to score board)
 * integrates coverage collection if configured to have coverage (default: UVM_NO_COVERAGE)
 
-<a name="howtouse"></a>
-How to use (TL;DR)
+How to use <a name="howtouse"></a>
 --------------------------
 
 Use Eclipse Oxygen for Java coming with Git integration
