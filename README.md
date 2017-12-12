@@ -5,8 +5,9 @@ UVM.VIP allows creation of a custom VIP extending a Base VIP.
 Table of Contents
 -----------------
 
-[**Base VIP**](#basevip)D
+[**Base VIP**](#basevip)
 * [**Features**](#features)
+[**How to use**](#howtouse)
 
 <br />
 
@@ -23,3 +24,27 @@ Base VIP is a fully featured UVM verification IP to be used as basis for buildin
 * integrates score board filtering to filter out specific transactions (default: filter forward all transactions to score board)
 * integrates coverage collection if configured to have coverage (default: UVM_NO_COVERAGE)
 
+<a name="howtouse"></a>
+How to use (TL;DR)
+--------------------------
+
+Use Eclipse Oxygen for Java coming with Git integration
+
+Use Java 9 w/JDK
+http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html
+Install
+
+Install Eclipse
+
+Launch Eclipse
+Install CDT for Eclipse via Install New Software
+
+.....
+
+
+
+Launching build:
+
+Run > External tools > External tools configurations
+Ant Build >
+  Build.xml     /   Make sure Correct JRE is used
